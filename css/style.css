@@ -58,7 +58,6 @@ body {
 }
 .container #main #main__social .main__telegram {
   background: #3b7ec1;
-  backdrop-filter: opacity(90%);
 }
 .container #main #main__social .main__github {
   background: #18278e;
