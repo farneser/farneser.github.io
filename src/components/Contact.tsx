@@ -18,7 +18,7 @@ const Contact: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayPro
                             Get in Touch
                         </h2>
                         <p className="mx-auto max-w-[600px] text-muted-foreground text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
-                            Want to chat? Feel free and just shoot me a direct message
+                            Want to chat? Feel free and never hesitate to contact me
                             {" "}
                             <a
                                 className="text-blue-500 underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -28,7 +28,7 @@ const Contact: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayPro
                                 on a telegram
                             </a>
                             {" "}
-                            and I&apos;ll respond whenever I can.
+                            I&apos;ll reply as soon as I can
                         </p>
                     </div>
                 </BlurFade>
@@ -38,13 +38,14 @@ const Contact: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayPro
                     </h3>
                     {DATA.socials.map((social) => (
                         <Button onClick={() => navigateTo(social.url)}>
-                            <div><social.icon className="mr-2 h-4 w-4"/></div>
+                            <div>
+                                <social.icon className="mr-2 h-4 w-4"/>
+                            </div>
                             <div>{social.name}</div>
                         </Button>
                     ))}
                 </BlurFade>
             </div>
-
         </section>
     );
 };

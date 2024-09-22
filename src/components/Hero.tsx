@@ -4,6 +4,7 @@ import BlurFade from "@/components/ui/blur-fade.tsx";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import DATA from "@/data/cv.ts";
 import {DelayProps} from "@/App.tsx";
+import WordRotate from "@/components/magicui/word-rotate.tsx";
 
 const Hero: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps) => {
     return (
@@ -11,12 +12,13 @@ const Hero: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps)
             <div className="mx-auto w-full max-w-2xl space-y-8">
                 <div className="gap-2 flex justify-between">
                     <div className="flex-col flex flex-1 space-y-1.5">
-                        <BlurFadeText
-                            delay={delay * multiplierStartsFrom}
-                            className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
-                            yOffset={8}
-                            text={`Hi, I'm ${DATA.hero.name.split(" ")[0]} 👋`}
-                        />
+                        <BlurFade
+                            delay={delay * multiplierStartsFrom} yOffset={8}
+                            className="flex text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
+                        >
+                            Hi, I'm {DATA.hero.name.split(" ")[0]}
+                            <WordRotate className="inline" words={["👋", "😊", "❤️", "✨", "❓"]}/>
+                        </BlurFade>
                         <BlurFadeText
                             className="max-w-[600px] md:text-xl"
                             delay={delay * multiplierStartsFrom}
@@ -32,7 +34,6 @@ const Hero: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps)
                 </div>
             </div>
         </section>
-
     );
 };
 

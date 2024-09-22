@@ -17,7 +17,11 @@ const About: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps
                             <strong className="text-gray-800 dark:text-gray-300 font-bold">{children}</strong>
                         ),
                         a: ({href, children}) => (
-                            <a href={href} className="text-gray-800 underline dark:text-gray-300 font-bold">
+                            <a
+                                href={href}
+                                target="_blank"
+                                className="text-gray-800 underline dark:text-gray-300 font-bold"
+                            >
                                 {children}
                             </a>
                         )
