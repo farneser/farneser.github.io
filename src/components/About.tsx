@@ -8,7 +8,7 @@ const About: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps
     return (
         <section id="about">
             <BlurFade delay={delay * multiplierStartsFrom}>
-                <h2 className="text-xl font-bold">About</h2>
+                <h2 className="text-xl font-bold">About me</h2>
             </BlurFade>
             <BlurFade delay={delay * (multiplierStartsFrom + 1)}>
                 <Markdown

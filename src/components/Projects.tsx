@@ -1,40 +1,46 @@
-import React from 'react';
+import {FC} from 'react';
+import {DelayProps} from "@/App.tsx";
+import BlurFade from "@/components/ui/blur-fade.tsx";
+import DATA from "@/data/cv.ts";
+import {ProjectCard} from "@/components/project-card.tsx";
 
-const projects = [
-  {
-    title: 'Project One',
-    description: 'A brief description of Project One.',
-    link: '#'
-  },
-  {
-    title: 'Project Two',
-    description: 'A brief description of Project Two.',
-    link: '#'
-  },
-  {
-    title: 'Project Three',
-    description: 'A brief description of Project Three.',
-    link: '#'
-  },
-];
+const Projects: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps) => {
+    return (
+        <section id="projects" className="mx-auto w-full max-w-2xl space-y-8">
+            <div className="grid items-center justify-center gap-4 text-center w-full">
+                <BlurFade delay={delay * multiplierStartsFrom}>
+                    <div className="space-y-3">
+                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                            Latest Projects
+                        </h2>
+                        <p className="mx-auto max-w-[600px] text-muted-foreground text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+                            I've worked on a variety of projects, from simple websites to complex web applications. Here
+                            are a few of my favorites.
+                        </p>
+                    </div>
+                </BlurFade>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
+                    {DATA.projects.map((project, id) => (
+                        <BlurFade
+                            key={project.title}
+                            delay={delay * (multiplierStartsFrom + 1) + id * 0.05}
+                        >
+                            <ProjectCard
+                                href={project.link}
+                                key={project.title}
+                                title={project.title}
+                                description={project.description}
+                                dates={project.dates}
+                                stack={project.stack}
+                                socials={project.socials}
+                            />
 
-const Projects: React.FC = () => {
-  return (
-    <section id="projects" className="py-20">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-10">My Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <div key={index} className="p-6 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold mb-4">{project.title}</h3>
-              <p className="mb-4">{project.description}</p>
-              <a href={project.link} className="hover:underline">View Project</a>
+                        </BlurFade>
+                    ))}
+                </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Projects;
