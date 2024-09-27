@@ -2,11 +2,11 @@ import {FC} from 'react';
 import {DelayProps} from "@/App.tsx";
 import BlurFade from "@/components/ui/blur-fade.tsx";
 import DATA from "@/data/cv.ts";
-import {ProjectCard} from "@/components/project-card.tsx";
+import {ProjectCard} from "@/components/ui/project-card.tsx";
 
 const Projects: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps) => {
     return (
-        <section id="projects" className="mx-auto w-full max-w-2xl space-y-8">
+        <section id="projects" className="mx-auto w-full max-w-2xl">
             <div className="grid items-center justify-center gap-4 text-center w-full">
                 <BlurFade delay={delay * multiplierStartsFrom}>
                     <div className="space-y-3">
@@ -33,6 +33,7 @@ const Projects: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayPr
                                 dates={project.dates}
                                 stack={project.stack}
                                 socials={project.socials}
+                                img_url={project.img_url}
                             />
 
                         </BlurFade>

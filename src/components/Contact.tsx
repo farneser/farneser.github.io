@@ -11,7 +11,7 @@ const Contact: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayPro
 
     return (
         <section id="contact">
-            <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-6">
+            <div className="grid items-center justify-center gap-4 text-center w-full">
                 <BlurFade delay={delay * multiplierStartsFrom}>
                     <div className="space-y-3">
                         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
@@ -32,18 +32,20 @@ const Contact: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayPro
                         </p>
                     </div>
                 </BlurFade>
-                <BlurFade delay={delay * (multiplierStartsFrom + 1)} className="space-x-3 py-3">
+                <BlurFade delay={delay * (multiplierStartsFrom + 1)} className="mx-auto">
                     <h3 className="text-2xl font-bold tracking-tighter sm:text-4xl py-3">
                         Connect me
                     </h3>
-                    {DATA.socials.map((social) => (
-                        <Button onClick={() => navigateTo(social.url)}>
-                            <div>
-                                <social.icon className="mr-2 h-4 w-4"/>
-                            </div>
-                            <div>{social.name}</div>
-                        </Button>
-                    ))}
+                    <div className="gap-2 flex flex-wrap">
+                        {DATA.socials.map((social) => (
+                            <Button onClick={() => navigateTo(social.url)}>
+                                <div>
+                                    <social.icon className="mr-2 h-4 w-4"/>
+                                </div>
+                                <div>{social.name}</div>
+                            </Button>
+                        ))}
+                    </div>
                 </BlurFade>
             </div>
         </section>

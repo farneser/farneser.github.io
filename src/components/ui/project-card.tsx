@@ -1,16 +1,18 @@
 import BlurFade from "@/components/ui/blur-fade.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
+import FlickeringGrid from "@/components/magicui/flickering-grid.tsx";
 
 interface Props {
     title: string;
     href?: string;
+    img_url?: string;
     description: string;
     dates: string;
     stack: string[];
     socials?: { name: string, link: string }[];
 }
 
-export function ProjectCard({title, href, description, dates, stack, socials}: Props) {
+export function ProjectCard({title, href, img_url, description, dates, stack, socials}: Props) {
     return (
         <div
             style={{
@@ -21,11 +23,23 @@ export function ProjectCard({title, href, description, dates, stack, socials}: P
                 transition: "all 0.3s ease-out"
             }}
             className="rounded-lg overflow-hidden h-full shadow-md bg-card flex flex-col hover:shadow-lg transition-all duration-300 ease-out ">
-            <a href={href}><img
-                src="https://cataas.com/cat"
-                alt="Project Preview"
-                className="w-full h-48 object-cover"
-            /></a>
+            <a href={href}>
+                <div className="h-48 w-full object-cover">
+                    {img_url ? <img
+                        src={img_url}
+                        alt="Project Preview"
+                        className="w-full h-48 object-cover"
+                    /> : <FlickeringGrid
+                        squareSize={4}
+                        gridGap={6}
+                        color="#6B7280"
+                        maxOpacity={0.5}
+                        flickerChance={0.1}
+                        width={700}
+                        className="w-full h-48 object-cover"
+                    />}
+                </div>
+            </a>
 
             <div
                 className="py-1 px-2 text-left flex-1 flex flex-col border-gray-300 border border-t-0 dark:border-gray-800">
