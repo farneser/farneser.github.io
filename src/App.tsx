@@ -18,16 +18,25 @@ function App() {
     const {setTheme} = useTheme();
     return (
         <div id="application" className="flex flex-col items-center justify-center min-h-screen">
-            <div className="fixed inset-0 bg-cover bg-center z-[-1]">
-
-            </div>
-            <main className="max-w-2xl mx-auto py-12 sm:py-24 px-6 space-y-10 ">
-                <Hero delay={BLUR_FADE_DELAY}/>
-                <About delay={BLUR_FADE_DELAY} multiplierStartsFrom={3}/>
-                <Skills delay={BLUR_FADE_DELAY} multiplierStartsFrom={7}/>
-                <Contact delay={BLUR_FADE_DELAY} multiplierStartsFrom={5}/>
-                <Projects delay={BLUR_FADE_DELAY} multiplierStartsFrom={7}/>
-                <Hire delay={BLUR_FADE_DELAY} multiplierStartsFrom={9}/>
+            <main className="max-w-2xl mx-auto py-12 sm:py-24 px-6 space-y-10">
+                <section id="hero">
+                    <Hero delay={BLUR_FADE_DELAY}/>
+                </section>
+                <section id="about">
+                    <About delay={BLUR_FADE_DELAY} multiplierStartsFrom={3}/>
+                </section>
+                <section id="skills">
+                    <Skills delay={BLUR_FADE_DELAY} multiplierStartsFrom={7}/>
+                </section>
+                <section id="contact">
+                    <Contact delay={BLUR_FADE_DELAY} multiplierStartsFrom={5}/>
+                </section>
+                <section id="projects">
+                    <Projects delay={BLUR_FADE_DELAY} multiplierStartsFrom={7}/>
+                </section>
+                <section id="hire-me">
+                    <Hire delay={BLUR_FADE_DELAY} multiplierStartsFrom={9}/>
+                </section>
             </main>
             <div className="flex flex-row">
                 <Button onClick={() => setTheme("light")}>Light</Button>

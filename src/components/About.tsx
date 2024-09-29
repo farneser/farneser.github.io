@@ -6,7 +6,7 @@ import {DelayProps} from "@/App.tsx";
 
 const About: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps) => {
     return (
-        <section id="about">
+        <div>
             <BlurFade delay={delay * multiplierStartsFrom}>
                 <h2 className="text-xl font-bold">About me</h2>
             </BlurFade>
@@ -31,7 +31,7 @@ const About: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps
                     {DATA.about.content}
                 </Markdown>
             </BlurFade>
-        </section>
+        </div>
     );
 };
 

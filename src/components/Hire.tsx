@@ -15,29 +15,27 @@ const Hire: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps)
         );
     }
     return (
-        <section id="hire-me">
-            <div className="grid items-center justify-center gap-4 text-center w-full">
-                <BlurFade delay={delay * multiplierStartsFrom}>
-                    <div className="space-y-3">
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                            Hire Me
-                        </h2>
-                        <p className="mx-auto max-w-[600px] text-muted-foreground text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
-                            Interested in working together? I would love to hear from you!
-                            Please feel free to reach out via
-                            {" "}
-                            {getLink("#contact", "my contacts", "_self")}
-                            {", "}
-                            {" "}
-                            or check my
-                            {" "}
-                            {getLink("cv.pdf", "resume", "_blank")}
-                            {" "} for more details.
-                        </p>
-                    </div>
-                </BlurFade>
-            </div>
-        </section>
+        <div className="grid items-center justify-center gap-4 text-center w-full">
+            <BlurFade delay={delay * multiplierStartsFrom}>
+                <div className="space-y-3">
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                        Hire Me
+                    </h2>
+                    <p className="mx-auto text-muted-foreground text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+                        Interested in working together? I would love to hear from you!
+                        Please feel free to reach out via
+                        {" "}
+                        {getLink("#contact", "my contacts", "_self")}
+                        {", "}
+                        {" "}
+                        or check my
+                        {" "}
+                        {getLink("cv.pdf", "resume", "_blank")}
+                        {" "} for more details.
+                    </p>
+                </div>
+            </BlurFade>
+        </div>
     );
 };
 
