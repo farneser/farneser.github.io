@@ -4,7 +4,13 @@ import BlurFade from "@/components/ui/blur-fade.tsx";
 import DATA from "@/data/cv.ts";
 import {ProjectCard} from "@/components/ui/project-card.tsx";
 
-const Projects: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayProps) => {
+const Projects: FC<DelayProps & { maxProjects?: number }> = (
+    {
+        delay = 0,
+        multiplierStartsFrom = 1,
+        maxProjects = -1
+    }: DelayProps & { maxProjects?: number }
+) => {
     return (
         <div className="grid items-center justify-center gap-4 text-center w-full">
             <BlurFade delay={delay * multiplierStartsFrom}>
@@ -19,24 +25,26 @@ const Projects: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayPr
                 </div>
             </BlurFade>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-3">
-                {DATA.projects.map((project, id) => (
-                    <BlurFade
-                        key={project.title}
-                        delay={delay * (multiplierStartsFrom + 1) + id * 0.05}
-                    >
-                        <ProjectCard
-                            href={project.link}
+                {DATA.projects
+                    .slice(0, maxProjects === -1 ? DATA.projects.length : maxProjects)
+                    .map((project, id) => (
+                        <BlurFade
                             key={project.title}
-                            title={project.title}
-                            description={project.description}
-                            dates={project.dates}
-                            stack={project.stack}
-                            socials={project.socials}
-                            // img_url={project.img_url}
-                        />
+                            delay={delay * (multiplierStartsFrom + 1) + id * 0.05}
+                        >
+                            <ProjectCard
+                                href={project.link}
+                                key={project.title}
+                                title={project.title}
+                                description={project.description}
+                                dates={project.dates}
+                                stack={project.stack}
+                                socials={project.socials}
+                                // img_url={project.img_url}
+                            />
 
-                    </BlurFade>
-                ))}
+                        </BlurFade>
+                    ))}
             </div>
         </div>
     );

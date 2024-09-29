@@ -30,7 +30,7 @@ const AUTO_CLOSE_WIDTH = 1024;
 const EXTRA_SLIM_WIDTH = 768;
 
 export default function Sidebar({children}: { children: ReactNode }) {
-    const [expanded, setExpanded] = useState(true);
+    const [expanded, setExpanded] = useState(false);
     const [rememberedExpanded, setRememberedExpanded] = useState(true);
     const windowWidth = useWindowWidth();
 
@@ -62,7 +62,7 @@ export default function Sidebar({children}: { children: ReactNode }) {
                     className={`${expanded ? "h-full" : ""} sm:h-auto bg-card flex flex-col border rounded-xl shadow-sm m-2 lg:m-6`}>
                     <SidebarContext.Provider value={{
                         expanded,
-                        setExpanded: setExpandedHandler
+                        setExpanded: setExpandedHandler,
                     }}>
                         <ul className="flex px-1 md:px-3">
                             {children}

@@ -9,6 +9,7 @@ import Sidebar, {SidebarItem} from "@/components/ui/sidebar.tsx";
 import {AppWindowIcon, ContactIcon, HandshakeIcon, HomeIcon, MoonIcon, SunIcon} from "lucide-react";
 import {FC, PropsWithChildren} from "react";
 import {cn} from "@/lib/utils.ts";
+import SendMessage from "@/components/sections/send-message.tsx";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -45,7 +46,7 @@ function App() {
                 />
             </Sidebar>
             <main id="content" className="flex flex-col items-center justify-center min-h-screen">
-                <div className="max-w-2xl mx-auto py-12 sm:py-24 px-2 space-y-10 sm:px-6">
+                <div className="max-w-2xl mx-auto py-16 sm:py-24 px-2 space-y-10 sm:px-6">
                     <Section id="hero" className="scroll-mt-24">
                         <Hero delay={BLUR_FADE_DELAY}/>
                     </Section>
@@ -59,10 +60,13 @@ function App() {
                         <Contact delay={BLUR_FADE_DELAY} multiplierStartsFrom={7}/>
                     </Section>
                     <Section id="projects">
-                        <Projects delay={BLUR_FADE_DELAY} multiplierStartsFrom={9}/>
+                        <Projects delay={BLUR_FADE_DELAY} multiplierStartsFrom={9} maxProjects={4}/>
                     </Section>
                     <Section id="hire-me">
                         <Hire delay={BLUR_FADE_DELAY} multiplierStartsFrom={11}/>
+                    </Section>
+                    <Section id="send-me-a-message">
+                        <SendMessage/>
                     </Section>
                 </div>
             </main>
