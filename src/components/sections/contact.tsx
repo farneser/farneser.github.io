@@ -35,9 +35,11 @@ const Contact: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}: DelayPro
                 <h3 className="text-2xl font-bold tracking-tighter sm:text-4xl py-3">
                     Connect me
                 </h3>
-                <div className="gap-2 flex flex-wrap">
+                <div className="gap-2 flex flex-wrap justify-center">
                     {DATA.socials.map((social) => (
-                        <Button onClick={() => navigateTo(social.url)}>
+                        <Button
+                            className="w-32 flex justify-start"
+                            onClick={() => navigateTo(social.url)}>
                             <div>
                                 <social.icon className="mr-2 h-4 w-4"/>
                             </div>

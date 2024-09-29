@@ -1,10 +1,10 @@
-import About from "@/components/About.tsx";
-import Projects from "@/components/Projects.tsx";
-import Hero from "@/components/Hero.tsx";
-import Contact from "@/components/Contact.tsx";
+import About from "@/components/sections/about.tsx";
+import Projects from "@/components/sections/projects.tsx";
+import Hero from "@/components/sections/hero.tsx";
+import Contact from "@/components/sections/contact.tsx";
 import {useTheme} from "@/components/ui/theme-provider.tsx";
-import Skills from "@/components/Skills.tsx";
-import Hire from "@/components/Hire.tsx";
+import Skills from "@/components/sections/skills.tsx";
+import Hire from "@/components/sections/hire.tsx";
 import Sidebar, {SidebarItem} from "@/components/ui/sidebar.tsx";
 import {AppWindowIcon, ContactIcon, HandshakeIcon, HomeIcon, MoonIcon, SunIcon} from "lucide-react";
 import {FC, PropsWithChildren} from "react";

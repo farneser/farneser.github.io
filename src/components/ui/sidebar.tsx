@@ -27,6 +27,7 @@ const useWindowWidth = () => {
 };
 
 const AUTO_CLOSE_WIDTH = 1024;
+const EXTRA_SLIM_WIDTH = 768;
 
 export default function Sidebar({children}: { children: ReactNode }) {
     const [expanded, setExpanded] = useState(true);
@@ -51,6 +52,25 @@ export default function Sidebar({children}: { children: ReactNode }) {
 
     const setExpandedHandler = (v: boolean) => {
         setExpanded(v);
+    }
+
+    if (windowWidth < EXTRA_SLIM_WIDTH) {
+        return (
+            <aside
+                className={`w-screen fixed bottom-0 z-30 flex justify-center`}>
+                <nav
+                    className={`${expanded ? "h-full" : ""} sm:h-auto bg-card flex flex-col border rounded-xl shadow-sm m-2 lg:m-6`}>
+                    <SidebarContext.Provider value={{
+                        expanded,
+                        setExpanded: setExpandedHandler
+                    }}>
+                        <ul className="flex px-1 md:px-3">
+                            {children}
+                        </ul>
+                    </SidebarContext.Provider>
+                </nav>
+            </aside>
+        )
     }
 
     return (
@@ -123,7 +143,7 @@ export function SidebarItem({icon, text, active, alert, link, onClick}: {
                 />
             )}
 
-            {!expanded && text && (
+            {!expanded && windowWidth > EXTRA_SLIM_WIDTH && text && (
                 <div
                     className={`
           absolute right-full rounded-md px-2 py-1 mr-6
