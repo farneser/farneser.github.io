@@ -6,7 +6,7 @@ import {useTheme} from "@/components/ui/theme-provider.tsx";
 import Skills from "@/components/Skills.tsx";
 import Hire from "@/components/Hire.tsx";
 import Sidebar, {SidebarItem} from "@/components/ui/sidebar.tsx";
-import {AppWindowIcon, ContactIcon, HeartIcon, HomeIcon, MoonIcon, SunIcon} from "lucide-react";
+import {AppWindowIcon, ContactIcon, HandshakeIcon, HomeIcon, MoonIcon, SunIcon} from "lucide-react";
 import {FC, PropsWithChildren} from "react";
 import {cn} from "@/lib/utils.ts";
 
@@ -37,15 +37,15 @@ function App() {
                 <SidebarItem icon={<HomeIcon/>} text={"Me"} link="#hero"/>
                 <SidebarItem icon={<ContactIcon/>} text={"Contacts"} link="#contact"/>
                 <SidebarItem icon={<AppWindowIcon/>} text={"Projects"} link="#projects"/>
-                <SidebarItem icon={<HeartIcon/>} text={"Hire me"} link="#hire-me"/>
+                <SidebarItem icon={<HandshakeIcon/>} text={"Hire me"} link="#hire-me" alert={true}/>
                 <SidebarItem
-                    icon={theme !== "light" ? <SunIcon/> : <MoonIcon/>}
+                    icon={theme === "light" ? <SunIcon/> : <MoonIcon/>}
                     text="Switch theme"
                     onClick={() => nextTheme()}
                 />
             </Sidebar>
             <main id="content" className="flex flex-col items-center justify-center min-h-screen">
-                <div className="max-w-2xl mx-auto py-12 sm:py-24 px-6 space-y-10">
+                <div className="max-w-2xl mx-auto py-12 sm:py-24 px-2 space-y-10 sm:px-6">
                     <Section id="hero" className="scroll-mt-24">
                         <Hero delay={BLUR_FADE_DELAY}/>
                     </Section>

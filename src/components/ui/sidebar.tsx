@@ -1,7 +1,12 @@
 import {ArrowLeftIcon, ArrowRightIcon} from "lucide-react";
 import {useContext, createContext, useState, useEffect, ReactNode} from "react";
 
-const SidebarContext = createContext({expanded: true});
+interface SidebarContextType {
+    expanded: boolean,
+    setExpanded: (val: boolean) => void,
+}
+
+export const SidebarContext = createContext<SidebarContextType>({expanded: true, setExpanded: () => null});
 
 const useWindowWidth = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -40,13 +45,23 @@ export default function Sidebar({children}: { children: ReactNode }) {
         if (windowWidth >= AUTO_CLOSE_WIDTH) {
             setRememberedExpanded((curr) => !curr);
         }
+
         setExpanded((curr) => !curr);
     };
 
+    const setExpandedHandler = (v: boolean) => {
+        setExpanded(v);
+    }
+
     return (
-        <aside className="h-screen fixed right-0 z-30 flex flex-col justify-center lg:block">
-            <nav className="bg-card flex flex-col border rounded-xl shadow-sm m-2 lg:m-6">
-                <SidebarContext.Provider value={{expanded}}>
+        <aside
+            className={`${expanded ? "w-full" : ""} sm:w-auto h-screen fixed right-0 z-30 flex flex-col justify-center lg:block`}>
+            <nav
+                className={`${expanded ? "h-full" : ""} sm:h-auto bg-card flex flex-col border rounded-xl shadow-sm m-2 lg:m-6`}>
+                <SidebarContext.Provider value={{
+                    expanded,
+                    setExpanded: setExpandedHandler
+                }}>
                     <ul className="flex-1 px-1 md:px-3">
                         <SidebarItem
                             icon={expanded ? <ArrowRightIcon/> : <ArrowLeftIcon/>}
@@ -60,7 +75,6 @@ export default function Sidebar({children}: { children: ReactNode }) {
     );
 }
 
-
 export function SidebarItem({icon, text, active, alert, link, onClick}: {
     icon: ReactNode,
     text?: string,
@@ -69,12 +83,20 @@ export function SidebarItem({icon, text, active, alert, link, onClick}: {
     link?: string,
     onClick?: () => void
 }) {
-    const {expanded} = useContext(SidebarContext)
+    const {expanded, setExpanded} = useContext(SidebarContext)
+
+    const windowWidth = useWindowWidth();
 
     return (
         <a
             href={link}
-            onClick={onClick}
+            onClick={() => {
+                if (onClick) {
+                    onClick();
+                } else if (windowWidth < AUTO_CLOSE_WIDTH) {
+                    setExpanded(false);
+                }
+            }}
             className={`
                 relative flex items-center py-2 px-3 my-1
                 font-medium rounded-md cursor-pointer
