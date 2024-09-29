@@ -39,7 +39,7 @@ function App() {
                 <SidebarItem icon={<AppWindowIcon/>} text={"Projects"} link="#projects"/>
                 <SidebarItem icon={<HeartIcon/>} text={"Hire me"} link="#hire-me"/>
                 <SidebarItem
-                    icon={theme == "light" ? <SunIcon/> : <MoonIcon/>}
+                    icon={theme !== "light" ? <SunIcon/> : <MoonIcon/>}
                     text="Switch theme"
                     onClick={() => nextTheme()}
                 />

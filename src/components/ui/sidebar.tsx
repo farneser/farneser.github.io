@@ -1,34 +1,69 @@
-import {ChevronLast, ChevronFirst} from "lucide-react"
-import {useContext, createContext, useState, ReactNode} from "react"
+import {ArrowLeftIcon, ArrowRightIcon} from "lucide-react";
+import {useContext, createContext, useState, useEffect, ReactNode} from "react";
 
 const SidebarContext = createContext({expanded: true});
 
+const useWindowWidth = () => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    return windowWidth;
+};
+
+const AUTO_CLOSE_WIDTH = 1024;
+
 export default function Sidebar({children}: { children: ReactNode }) {
-    const [expanded, setExpanded] = useState(true)
+    const [expanded, setExpanded] = useState(true);
+    const [rememberedExpanded, setRememberedExpanded] = useState(true);
+    const windowWidth = useWindowWidth();
+
+    useEffect(() => {
+        if (windowWidth < AUTO_CLOSE_WIDTH) {
+            setExpanded(false);
+        } else {
+            setExpanded(rememberedExpanded);
+        }
+    }, [windowWidth, rememberedExpanded]);
+
+    const handleToggle = () => {
+        if (windowWidth >= AUTO_CLOSE_WIDTH) {
+            setRememberedExpanded((curr) => !curr);
+        }
+        setExpanded((curr) => !curr);
+    };
 
     return (
-        <aside className="h-screen fixed bg-card right-0 z-30">
-            <nav className="h-full flex flex-col border-r shadow-sm">
-                <div className="p-4 pb-2 flex justify-between items-center">
-                    <button
-                        onClick={() => setExpanded((curr) => !curr)}
-                        className="p-1.5 rounded-lg"
-                    >
-                        {expanded ? <ChevronLast/> : <ChevronFirst/>}
-                    </button>
-                </div>
-
+        <aside className="h-screen fixed right-0 z-30 flex flex-col justify-center lg:block">
+            <nav className="bg-card flex flex-col border rounded-xl shadow-sm m-2 lg:m-6">
                 <SidebarContext.Provider value={{expanded}}>
-                    <ul className="flex-1 px-3">{children}</ul>
+                    <ul className="flex-1 px-1 md:px-3">
+                        <SidebarItem
+                            icon={expanded ? <ArrowRightIcon/> : <ArrowLeftIcon/>}
+                            onClick={handleToggle}
+                        />
+                        {children}
+                    </ul>
                 </SidebarContext.Provider>
             </nav>
         </aside>
-    )
+    );
 }
+
 
 export function SidebarItem({icon, text, active, alert, link, onClick}: {
     icon: ReactNode,
-    text: string,
+    text?: string,
     active?: boolean,
     alert?: boolean,
     link?: string,
@@ -45,18 +80,19 @@ export function SidebarItem({icon, text, active, alert, link, onClick}: {
                 font-medium rounded-md cursor-pointer
                 transition-colors group
                 ${active
-                ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-                : "hover:bg-indigo-50 text-gray-600"}`
+                ? "bg-accent from-indigo-200 to-indigo-100 text-accent-foreground"
+                : "hover:bg-accent text-accent-foreground"}`
             }
         >
             {icon}
-            <span
+            {text && <span
                 className={`overflow-hidden transition-all text-nowrap ${
-                    expanded ? "w-52 ml-3" : "w-0"
+                    expanded ? "w-28 ml-3" : "w-0"
                 }`}
             >
-        {text}
-      </span>
+                {text}
+            </span>}
+
             {alert && (
                 <div
                     className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
@@ -65,11 +101,11 @@ export function SidebarItem({icon, text, active, alert, link, onClick}: {
                 />
             )}
 
-            {!expanded && (
+            {!expanded && text && (
                 <div
                     className={`
           absolute right-full rounded-md px-2 py-1 mr-6
-          bg-indigo-100 text-indigo-800 text-sm
+          bg-accent text-accent-foreground text-sm text-nowrap
           invisible opacity-20 translate-x-3 transition-all
           group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
       `}
