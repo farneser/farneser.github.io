@@ -1,39 +1,59 @@
-import {FC} from "react";
+import { FC, useState } from "react";
 import BlurFade from "@/components/ui/blur-fade.tsx";
-import {DelayProps} from "@/App.tsx";
+import { DelayProps } from "@/App.tsx";
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import {getBaseUrl} from "@/lib/utils.ts";
 
-const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
-    function process_form() {
+const SendMessage: FC<DelayProps> = ({ delay = 0, multiplierStartsFrom = 1 }) => {
+    const { executeRecaptcha } = useGoogleReCaptcha();
+    const [loading, setLoading] = useState(false);
+
+    async function process_form() {
         const name = (document.getElementById("name") as HTMLInputElement).value;
         const email = (document.getElementById("email") as HTMLInputElement).value;
-        const message = (document.getElementById("message") as HTMLInputElement).value;
+        const message = (document.getElementById("message") as HTMLTextAreaElement).value;
 
         if (name === "" || email === "" || message === "") {
             alert("Please fill in all the fields");
             return;
         }
 
-        fetch("https://me.farneser.dev/send_message", {
+        if (!executeRecaptcha) {
+            console.error("Recaptcha not loaded");
+            return;
+        }
+
+        setLoading(true);
+        const token = await executeRecaptcha('sendMessage');
+
+        console.log(token);
+
+        fetch(`${getBaseUrl()}/send_message`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name: name,
-                email: email,
-                message: message,
+                name,
+                email,
+                message,
+                token,
             }),
-        }).then((response) => {
-            if (response.status === 200) {
-                alert("Message sent successfully!");
-            } else {
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    alert("Message sent successfully!");
+                } else {
+                    alert("Failed to send message. Please try again later.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
                 alert("Failed to send message. Please try again later.");
-            }
-        }).catch((error) => {
-            console.error("Error:", error);
-            alert("Failed to send message. Please try again later.");
-        });
-
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     return (
@@ -84,10 +104,11 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
                             ></textarea>
                         </div>
                         <button
-                            onClick={() => process_form()}
-                            className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
+                            onClick={process_form}
+                            className={`w-full py-2 px-4 ${loading ? 'bg-gray-400' : 'bg-blue-600'} text-white rounded-md hover:bg-blue-700 transition duration-200`}
+                            disabled={loading}
                         >
-                            Send it!
+                            {loading ? 'Sending...' : 'Send it!'}
                         </button>
                     </div>
                 </div>

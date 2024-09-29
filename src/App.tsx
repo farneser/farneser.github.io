@@ -68,6 +68,21 @@ function App() {
                     <Section id="send-me-a-message">
                         <SendMessage/>
                     </Section>
+                    <Section id="footer">
+                        <footer className="text-center text-muted-foreground">
+                            <p>This website uses Google reCAPTCHA to protect against spam.{" "}
+                                <a
+                                    className="underline hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                                    href="https://policies.google.com/privacy" target="_blank"
+                                >Privacy Policy</a>
+                                {" "}and{" "}
+                                <a
+                                    className={"underline hover:text-blue-500 dark:hover:text-blue-400 transition-colors"}
+                                    href="https://policies.google.com/terms" target="_blank"
+                                >Terms of Service</a>.
+                            </p>
+                        </footer>
+                    </Section>
                 </div>
             </main>
         </div>
