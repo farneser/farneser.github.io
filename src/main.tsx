@@ -8,7 +8,7 @@ import {getRecaptchaSiteKey} from "@/lib/utils.ts";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <ThemeProvider defaultTheme="light" storageKey="ui-theme">\
+        <ThemeProvider defaultTheme="light" storageKey="ui-theme">
             <GoogleReCaptchaProvider reCaptchaKey={getRecaptchaSiteKey()}>
                 <App/>
             </GoogleReCaptchaProvider>
