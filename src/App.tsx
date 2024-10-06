@@ -5,8 +5,8 @@ import Contact from "@/components/sections/contact.tsx";
 import {useTheme} from "@/components/ui/theme-provider.tsx";
 import Skills from "@/components/sections/skills.tsx";
 import Hire from "@/components/sections/hire.tsx";
-import Sidebar, {SidebarItem} from "@/components/ui/sidebar.tsx";
-import {AppWindowIcon, ContactIcon, HandshakeIcon, HomeIcon, MoonIcon, SunIcon} from "lucide-react";
+import Sidebar, {SidebarItem, SidebarSeparator} from "@/components/ui/sidebar.tsx";
+import {AppWindowIcon, ContactIcon, HandshakeIcon, HomeIcon, MessageSquareIcon, MoonIcon, SunIcon} from "lucide-react";
 import {FC, PropsWithChildren} from "react";
 import {cn} from "@/lib/utils.ts";
 import SendMessage from "@/components/sections/send-message.tsx";
@@ -39,6 +39,8 @@ function App() {
                 <SidebarItem icon={<ContactIcon/>} text={"Contacts"} link="#contact"/>
                 <SidebarItem icon={<AppWindowIcon/>} text={"Projects"} link="#projects"/>
                 <SidebarItem icon={<HandshakeIcon/>} text={"Hire me"} link="#hire-me" alert={true}/>
+                <SidebarItem icon={<MessageSquareIcon/>} text={"Send me a message"} link="#send-me-a-message"/>
+                <SidebarSeparator/>
                 <SidebarItem
                     icon={theme === "light" ? <SunIcon/> : <MoonIcon/>}
                     text="Switch theme"

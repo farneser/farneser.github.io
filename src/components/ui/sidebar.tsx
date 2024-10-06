@@ -1,5 +1,5 @@
 import {ArrowLeftIcon, ArrowRightIcon} from "lucide-react";
-import {useContext, createContext, useState, useEffect, useMemo, ReactNode} from "react";
+import {useContext, createContext, useState, useEffect, useMemo, ReactNode, Children} from "react";
 
 interface SidebarContextType {
     expanded: boolean;
@@ -71,6 +71,8 @@ export default function Sidebar({children}: { children: ReactNode }) {
         );
     }
 
+    const childCount = Children.count(children);
+
     return (
         <aside className={`${sidebarClass} ${containerClass}`}>
             <nav className="sm:h-auto bg-card flex flex-col border rounded-xl shadow-sm m-2 lg:m-6">
@@ -81,6 +83,7 @@ export default function Sidebar({children}: { children: ReactNode }) {
                             icon={expanded ? <ArrowRightIcon/> : <ArrowLeftIcon/>}
                             onClick={handleToggle}
                         />
+                        {childCount > 1 && <SidebarSeparator/>}
                         {children}
                     </ul>
                 </SidebarContext.Provider>
@@ -146,4 +149,10 @@ const SidebarItem = (
     );
 }
 
-export {SidebarItem};
+const SidebarSeparator = () => {
+    return <div className="w-full flex justify-center">
+        <li className="h-px bg-accent hidden md:block w-[70%] lg:w-full my-1"/>
+    </div>;
+}
+
+export {SidebarItem, SidebarSeparator};
