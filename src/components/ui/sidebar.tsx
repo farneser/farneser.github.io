@@ -102,7 +102,8 @@ const SidebarItem = (
         alert,
         link,
         onClick,
-    }: SidebarItemProps) => {
+    }: SidebarItemProps
+) => {
     const {expanded, setExpanded} = useContext(SidebarContext);
     const windowWidth = useWindowWidth();
 
@@ -114,8 +115,10 @@ const SidebarItem = (
         }
     };
 
+    const Tag = link ? 'a' : 'button';
+
     return (
-        <a
+        <Tag
             href={link}
             onClick={handleClick}
             className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
@@ -135,7 +138,7 @@ const SidebarItem = (
                     {text}
                 </div>
             )}
-        </a>
+        </Tag>
     );
 }
 
