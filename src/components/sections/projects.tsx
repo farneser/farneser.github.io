@@ -24,7 +24,7 @@ const Projects: FC<DelayProps & { maxProjects?: number }> = (
                     </p>
                 </div>
             </BlurFade>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-3">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(306px,1fr))] gap-3">
                 {DATA.projects
                     .slice(0, maxProjects === -1 ? DATA.projects.length : maxProjects)
                     .map((project, id) => (
