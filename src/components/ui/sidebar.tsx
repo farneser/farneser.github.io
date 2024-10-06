@@ -64,7 +64,7 @@ export default function Sidebar({children}: { children: ReactNode }) {
             <aside className="w-screen fixed bottom-0 z-30 flex justify-center">
                 <nav className="sm:h-auto bg-card flex flex-col border rounded-xl shadow-sm m-2 lg:m-6">
                     <SidebarContext.Provider value={contextValue}>
-                        <ul className="flex px-1 md:px-3">{children}</ul>
+                        <ul className="flex px-1">{children}</ul>
                     </SidebarContext.Provider>
                 </nav>
             </aside>
@@ -75,8 +75,12 @@ export default function Sidebar({children}: { children: ReactNode }) {
         <aside className={`${sidebarClass} ${containerClass}`}>
             <nav className="sm:h-auto bg-card flex flex-col border rounded-xl shadow-sm m-2 lg:m-6">
                 <SidebarContext.Provider value={contextValue}>
-                    <ul className="flex-1 px-1 md:px-3">
-                        <SidebarItem icon={expanded ? <ArrowRightIcon/> : <ArrowLeftIcon/>} onClick={handleToggle}/>
+                    <ul className="flex-1 md:p-1 lg:py-3 lg:px-2.5">
+                        <SidebarItem
+                            text={expanded ? "Close" : "Open"}
+                            icon={expanded ? <ArrowRightIcon/> : <ArrowLeftIcon/>}
+                            onClick={handleToggle}
+                        />
                         {children}
                     </ul>
                 </SidebarContext.Provider>
@@ -121,7 +125,7 @@ const SidebarItem = (
         <Tag
             href={link}
             onClick={handleClick}
-            className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
+            className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group text-left w-full ${
                 active ? "bg-accent text-accent-foreground" : "hover:bg-accent text-accent-foreground"
             }`}
         >
@@ -131,13 +135,13 @@ const SidebarItem = (
                     {text}
                 </span>
             )}
-            {alert && <div className="absolute right-2 w-2 h-2 rounded bg-indigo-400"/>}
             {!expanded && windowWidth > EXTRA_SLIM_WIDTH && text && (
                 <div
                     className="absolute right-full rounded-md px-2 py-1 mr-6 bg-accent text-accent-foreground text-sm text-nowrap invisible opacity-20 translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
                     {text}
                 </div>
             )}
+            {alert && <div className={`absolute right-2 w-2 h-2 bg-indigo-400 rounded ${!expanded ? "top-2" : ""}`}/>}
         </Tag>
     );
 }

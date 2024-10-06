@@ -2827,6 +2827,11 @@ react-google-recaptcha-v3@^1.10.1:
   dependencies:
     hoist-non-react-statics "^3.3.2"
 
+react-hook-form@^7.53.0:
+  version "7.53.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.53.0.tgz#3cf70951bf41fa95207b34486203ebefbd3a05ab"
+  integrity sha512-M1n3HhqCww6S2hxLxciEXy2oISPnAzxY7gvwVPrtlczTM/1dDadXgUxDpHMrMTblDOcm/AXtXxHwZ3jpg1mqKQ==
+
 react-icon-cloud@^4.1.4:
   version "4.1.4"
   resolved "https://registry.npmjs.org/react-icon-cloud/-/react-icon-cloud-4.1.4.tgz"
