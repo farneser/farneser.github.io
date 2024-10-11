@@ -3,8 +3,8 @@ import BlurFade from "@/components/ui/blur-fade.tsx";
 import {DelayProps} from "@/App.tsx";
 import {useGoogleReCaptcha} from 'react-google-recaptcha-v3';
 import {getBaseUrl} from "@/lib/utils.ts";
-import {useForm} from "react-hook-form";
-import {cn} from "@/lib/utils"
+import {useForm, SubmitHandler} from "react-hook-form";
+import {cn} from "@/lib/utils";
 
 const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
     ({className, type, ...props}, ref) => {
@@ -20,7 +20,7 @@ const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>
             />
         )
     }
-)
+);
 
 type MessageData = {
     name: string;
@@ -31,13 +31,20 @@ type MessageData = {
 const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
     const {executeRecaptcha} = useGoogleReCaptcha();
     const [loading, setLoading] = useState(false);
-    const {register, handleSubmit} = useForm<MessageData>();
+    const [submissionError, setSubmissionError] = useState<string | null>(null);
+    const [submissionSuccess, setSubmissionSuccess] = useState<string | null>(null);
 
-    const onSubmit = async (data: MessageData) => {
+    const {register, handleSubmit, formState: {errors}} = useForm<MessageData>();
+
+    const onSubmit: SubmitHandler<MessageData> = async (data) => {
         setLoading(true);
+        setSubmissionError(null);
+        setSubmissionSuccess(null);
 
         if (!executeRecaptcha) {
             console.error("Recaptcha not loaded");
+            setSubmissionError("Internal error. Please try again later.");
+            setLoading(false);
 
             return;
         }
@@ -54,17 +61,17 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
             });
 
             if (response.status === 200) {
-                alert("Message sent successfully!");
+                setSubmissionSuccess("Message sent successfully!");
             } else {
-                alert("Failed to send message. Please try again later.");
+                setSubmissionError("Failed to send message. Please try again later.");
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("Failed to send message. Please try again later.");
+            setSubmissionError("Failed to send message. Please try again later.");
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
         <div className="grid items-center justify-center gap-4 text-center w-full">
@@ -74,6 +81,23 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
                     <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                         Drop me a message!
                     </h2>
+                    <p className="mx-auto text-muted-foreground text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">
+                        If you have any questions, suggestions, or just want to say hi, feel free to drop me a message!
+                    </p>
+
+                    <div className="min-h-8 text-pretty font-sans text-s text-muted-foreground">
+                        {submissionSuccess && (
+                            <div className="text-green-600">
+                                {submissionSuccess}
+                            </div>
+                        )}
+                        {submissionError && (
+                            <div className="text-red-600">
+                                {submissionError}
+                            </div>
+                        )}
+                    </div>
+
                     <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
                         <div>
                             <label
@@ -86,8 +110,15 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
                                 type="text"
                                 id="name"
                                 placeholder="Your awesome name"
-                                {...register("name", {required: true})}
+                                {...register("name", {required: "This field is required"})}
                             />
+                            <div className="min-h-[20px]">
+                                {errors.name && (
+                                    <p className="text-red-600 text-sm">
+                                        {errors.name.message}
+                                    </p>
+                                )}
+                            </div>
                         </div>
                         <div>
                             <label
@@ -100,8 +131,21 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
                                 type="email"
                                 id="email"
                                 placeholder="Your email address"
-                                {...register("email", {required: true, pattern: /^\S+@\S+$/i})}
+                                {...register("email", {
+                                    required: "This field is required",
+                                    pattern: {
+                                        value: /^\S+@\S+$/i,
+                                        message: "Please enter a valid email",
+                                    }
+                                })}
                             />
+                            <div className="min-h-[20px]">
+                                {errors.email && (
+                                    <p className="text-red-600 text-sm">
+                                        {errors.email.message}
+                                    </p>
+                                )}
+                            </div>
                         </div>
                         <div className="sm:col-span-2">
                             <label
@@ -115,8 +159,15 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
                                 rows={4}
                                 className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                 placeholder="Type your message here..."
-                                {...register("message", {required: true})}
+                                {...register("message", {required: "This field is required"})}
                             />
+                            <div className="min-h-[20px]">
+                                {errors.message && (
+                                    <p className="text-red-600 text-sm">
+                                        {errors.message.message}
+                                    </p>
+                                )}
+                            </div>
                         </div>
                         <button
                             type="submit"
@@ -130,6 +181,6 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
             </BlurFade>
         </div>
     );
-}
+};
 
 export default SendMessage;

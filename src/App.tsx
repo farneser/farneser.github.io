@@ -39,7 +39,7 @@ function App() {
                 <SidebarItem icon={<ContactIcon/>} text={"Contacts"} link="#contact"/>
                 <SidebarItem icon={<AppWindowIcon/>} text={"Projects"} link="#projects"/>
                 <SidebarItem icon={<HandshakeIcon/>} text={"Hire me"} link="#hire-me" alert={true}/>
-                <SidebarItem icon={<MessageSquareIcon/>} text={"Send me a message"} link="#send-me-a-message"/>
+                <SidebarItem icon={<MessageSquareIcon/>} text={"Fast message"} link="#send-me-a-message"/>
                 <SidebarSeparator/>
                 <SidebarItem
                     icon={theme === "light" ? <SunIcon/> : <MoonIcon/>}
