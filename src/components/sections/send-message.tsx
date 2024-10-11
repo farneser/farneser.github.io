@@ -76,8 +76,7 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
     return (
         <div className="grid items-center justify-center gap-4 text-center w-full">
             <BlurFade delay={delay * multiplierStartsFrom} className="w-full">
-                <form className="space-y-3 bg-card w-full"
-                      onSubmit={handleSubmit(onSubmit)}>
+                <form className="space-y-3 bg-card w-full" onSubmit={handleSubmit(onSubmit)}>
                     <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                         Drop me a message!
                     </h2>
@@ -98,11 +97,12 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
                         )}
                     </div>
 
-                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+                    <div
+                        className="grid grid-cols-1 sm:grid-cols-2 text-left gap-1 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-5 2xl:gap-6">
                         <div>
                             <label
                                 htmlFor="name"
-                                className="block text-sm font-medium text-accent-foreground"
+                                className="block text-sm font-medium text-accent-foreground px-3 py-1"
                             >
                                 What's your name?
                             </label>
@@ -123,7 +123,7 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
                         <div>
                             <label
                                 htmlFor="email"
-                                className="block text-sm font-medium text-accent-foreground"
+                                className="block text-sm font-medium text-accent-foreground px-3 py-1"
                             >
                                 Your email?
                             </label>
@@ -150,7 +150,7 @@ const SendMessage: FC<DelayProps> = ({delay = 0, multiplierStartsFrom = 1}) => {
                         <div className="sm:col-span-2">
                             <label
                                 htmlFor="message"
-                                className="block text-sm font-medium text-accent-foreground"
+                                className="block text-sm font-medium text-accent-foreground px-3 py-1"
                             >
                                 Got something to say?
                             </label>

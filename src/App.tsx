@@ -34,19 +34,21 @@ function App() {
 
     return (
         <div id="application">
-            <Sidebar>
-                <SidebarItem icon={<HomeIcon/>} text={"Me"} link="#hero"/>
-                <SidebarItem icon={<ContactIcon/>} text={"Contacts"} link="#contact"/>
-                <SidebarItem icon={<AppWindowIcon/>} text={"Projects"} link="#projects"/>
-                <SidebarItem icon={<HandshakeIcon/>} text={"Hire me"} link="#hire-me" alert={true}/>
-                <SidebarItem icon={<MessageSquareIcon/>} text={"Fast message"} link="#send-me-a-message"/>
-                <SidebarSeparator/>
-                <SidebarItem
-                    icon={theme === "light" ? <SunIcon/> : <MoonIcon/>}
-                    text="Switch theme"
-                    onClick={() => nextTheme()}
-                />
-            </Sidebar>
+            <div id="sidebar">
+                <Sidebar>
+                    <SidebarItem icon={<HomeIcon/>} text={"Me"} link="#hero"/>
+                    <SidebarItem icon={<ContactIcon/>} text={"Contacts"} link="#contact"/>
+                    <SidebarItem icon={<AppWindowIcon/>} text={"Projects"} link="#projects"/>
+                    <SidebarItem icon={<HandshakeIcon/>} text={"Hire me"} link="#hire-me" alert={true}/>
+                    <SidebarItem icon={<MessageSquareIcon/>} text={"Fast message"} link="#send-me-a-message"/>
+                    <SidebarSeparator/>
+                    <SidebarItem
+                        icon={theme === "light" ? <SunIcon/> : <MoonIcon/>}
+                        text="Switch theme"
+                        onClick={() => nextTheme()}
+                    />
+                </Sidebar>
+            </div>
             <main id="content" className="flex flex-col items-center justify-center min-h-screen">
                 <div className="max-w-2xl mx-auto py-16 sm:py-24 px-2 space-y-10 sm:px-6">
                     <Section id="hero" className="scroll-mt-24">
