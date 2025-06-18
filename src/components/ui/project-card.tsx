@@ -24,7 +24,7 @@ export function ProjectCard({title, href, img_url, description, dates, stack, so
             }}
             className="rounded-lg overflow-hidden h-full shadow-md bg-card flex flex-col hover:shadow-lg transition-all duration-300 ease-out ">
             <a href={href}>
-                <div className="h-48 w-full object-cover">
+                {/* <div className="h-48 w-full object-cover">
                     {img_url ? <img
                         src={img_url}
                         alt="Project Preview"
@@ -38,7 +38,7 @@ export function ProjectCard({title, href, img_url, description, dates, stack, so
                         width={700}
                         className="w-full h-48 object-cover"
                     />}
-                </div>
+                </div> */}
             </a>
 
             <div
